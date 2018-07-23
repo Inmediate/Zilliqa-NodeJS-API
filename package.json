@@ -1,0 +1,20 @@
+{
+  "name": "contract-api",
+  "version": "1.1.0",
+  "main": "index.js",
+  "author": "Steven Tran",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "async": "2.6.0",
+    "bluebird": "3.5.1",
+    "body-parser": "1.18.2",
+    "config": "1.29.0",
+    "express": "4.16.2",
+    "fs-extra": "6.0.1",
+    "lodash": "4.17.4",
+    "request": "2.83.0",
+    "request-promise": "4.2.2",
+    "zilliqa.js": "github:Zilliqa/Zilliqa-JavaScript-Library"
+  }
+}

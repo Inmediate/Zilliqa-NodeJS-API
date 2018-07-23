@@ -1,0 +1,9 @@
+{
+    "api": {
+        "zil_node": "https://api-scilla.zilliqa.com",
+        "gasPrice": 1,
+        "gasLimit": 50,
+        "version": 0
+    },
+    "server_port": 3000
+}
