@@ -1,7 +1,20 @@
 # Zilliqa-NodeJS-API
-==========================
+=============================
 
-NodeJS Rest API wrapper to interact with Zilliqa platform build on top of https://github.com/Zilliqa/Zilliqa-JavaScript-Library 
+NodeJS Rest API skeleton to interact with Zilliqa platform build on top of https://github.com/Zilliqa/Zilliqa-JavaScript-Library 
+
+## Features
+
+### General APIs
+- Deploy smart contract
+- List all contracts deployed by an account
+- Transfer Zil into an account address
+- Check account balance
+- Get transaction info by hash
+
+### HelloWorld APIs
+- Execute contract method: setHello.
+
 
 ## Installation
 
@@ -10,13 +23,38 @@ git clone git@github.com:Inmediate/Zilliqa-NodeJS-API.git
 yarn install
 ```
 
-Then, edit `zil_node` at `config/default.json ` that point to your Zilliqa node. In this case, the Scilla testnet. Finally, start server `node index.js`
+- Edit `zil_node` at `config/default.json ` that point to your Zilliqa node. In this case, the Scilla testnet. Finally, start server `node index.js`
 
 
-## APIs
+## Examples
 
-1. Transfer Zil: `POST http://localhost:3000/api/v1/zilliqa/transfer`, payload:
+### General APIs: Deploy smart contract
+- `POST http://localhost:3000/api/v1/zilliqa/contract/deploy`
+- Payload:
+```js
+{
+    "nameId": "HelloWorld",
+    "params": [{
+        "vname" : "owner",
+        "type" : "Address", 
+        "value" : ${owner_address}
+    }],
+    "key": ${private_key}
+}
 ```
+- The contract `HelloWorld` is at `contract/HelloWorld.scilla`
+- `nameId`: Corresponding to contract file name, which is `HelloWorld.scilla`
+- `params`: Corresponding to immutable contract params: `(owner: Address)`
+
+### General APIs: List all contracts deployed by an account: 
+```js
+GET http://localhost:3000/api/v1/zilliqa/contract/list?address=${account_address}
+```
+
+### General APIs: Transfer Zil into an account address
+- `POST http://localhost:3000/api/v1/zilliqa/transfer`
+- Payload:
+```js
 {
     "to": ${receiver_address},
     "key": ${sender_private_key},
@@ -24,31 +62,20 @@ Then, edit `zil_node` at `config/default.json ` that point to your Zilliqa node.
 }
 ```
 
-2. Check account balance: `GET http://localhost:3000/api/v1/zilliqa/balances?address=${account_address}`
-
-3. Get transaction info: `GET http://localhost:3000/api/v1/zilliqa/transaction?txHash=${transaction_hash}`
-
-4. Deploy `HelloWorld` smart contract:
-    - `HelloWorld` smart contract is at `contract/HelloWorld.scilla`
-    - Execute `POST http://localhost:3000/api/v1/zilliqa/contract/deploy` with payload
-    ```
-        {
-            "nameId": "HelloWorld", // Must be same with "HelloWorld.scilla"
-            "params": [{
-                "vname" : "owner",
-                "type" : "Address", 
-                "value" : ${owner_address}
-            }],
-            "key": ${private_key}
-        }
-    ``` 
-    to deploy the contract. Reference: https://scilla.readthedocs.io/en/latest/interface.html
-
-5. List all contracts deployed by an account: `GET http://localhost:3000/api/v1/zilliqa/contract/list?address=${account_address}`
-
-6. Execute contract method `POST http://localhost:3000/api/v1/zilliqa/contract/execute` with pauload:
-
+### General APIs: Check account balance
+```js
+GET http://localhost:3000/api/v1/zilliqa/balances?address=${account_address}
 ```
+
+### General APIs: Get transaction info by hash
+```js
+GET http://localhost:3000/api/v1/zilliqa/transaction?txHash=${transaction_hash}
+```
+
+### HelloWorld API: Execute setHello method
+- `POST http://localhost:3000/api/v1/zilliqa/contract/execute`
+- Payload:
+```js
 {
     "address": ${contract_address},
     "message": {
@@ -63,5 +90,7 @@ Then, edit `zil_node` at `config/default.json ` that point to your Zilliqa node.
     },
     "key": ${sender_private_key}
 }
-``` 
-To execute `setHello` method.
+```
+
+## Next Release Features
+- Listener for smart contract events
