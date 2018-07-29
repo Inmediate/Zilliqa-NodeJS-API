@@ -1,7 +1,7 @@
 /**
  * Common apis on zilliqa network
  */
-const fs = require('fs-extra')
+const fs = require('fs')
 const { 
     getBalance, deployContract, transferZil,
     getTransaction, executeContract, getSmartContracts 
@@ -41,8 +41,8 @@ module.exports = (app) => {
     app.post('/api/v1/zilliqa/contract/deploy', async (req, res) => {
         try {
             const { nameId, params, key } = req.body
-            const code = await fs.readFile(`./contract/${nameId}.scilla`)
-            const   { result } = await deployContract(code.toString(), params, key)
+            const code = fs.readFileSync(`./contract/${nameId}.scilla`, 'utf-8')
+            const   { result } = await deployContract(code, params, key)
             res.send({ txHash: result })
         } catch (err) {
             res.status(500).send({ message: err.toString() })
