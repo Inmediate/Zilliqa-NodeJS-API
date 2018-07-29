@@ -74,6 +74,8 @@ async function transferZil(to, amount, privateKey) {
 
 const getSmartContracts = async (address) => new Promise((resolve, reject) => zilliqa.node.getSmartContracts({ address }, cb(resolve, reject)))
 
+const getSmartContractState = async (address) => new Promise((resolve, reject) => zilliqa.node.getSmartContractState({ address }, cb(resolve, reject)))
+
 
 module.exports = {
     getBalance,
@@ -81,5 +83,6 @@ module.exports = {
     transferZil,
     getTransaction,
     executeContract,
-    getSmartContracts
+    getSmartContracts,
+    getSmartContractState
 }

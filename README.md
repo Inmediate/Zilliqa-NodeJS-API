@@ -8,6 +8,7 @@ NodeJS Rest API skeleton to interact with Zilliqa platform build on top of https
 ### General APIs
 - Deploy smart contract
 - List all contracts deployed by an account
+- List contract states
 - Transfer Zil into an account address
 - Check account balance
 - Get transaction info by hash
@@ -46,9 +47,14 @@ yarn install
 - `nameId`: Corresponding to contract file name, which is `HelloWorld.scilla`
 - `params`: Corresponding to immutable contract params: `(owner: Address)`
 
-### General APIs: List all contracts deployed by an account: 
+### General APIs: List all contracts deployed by an account
 ```js
 GET http://localhost:3000/api/v1/zilliqa/contract/list?address=${account_address}
+```
+
+### General APIs: List contract states 
+```js
+GET http://localhost:3000/api/v1/zilliqa/contract/state?address=${contract_address}
 ```
 
 ### General APIs: Transfer Zil into an account address

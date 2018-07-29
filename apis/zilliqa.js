@@ -4,7 +4,8 @@
 const fs = require('fs')
 const { 
     getBalance, deployContract, transferZil,
-    getTransaction, executeContract, getSmartContracts 
+    getTransaction, executeContract, getSmartContracts,
+    getSmartContractState 
 } = require('./lib/transaction')
 
 module.exports = (app) => {
@@ -63,6 +64,16 @@ module.exports = (app) => {
         try {
             const { address } = req.query
             const { result } = await getSmartContracts(address)
+            res.send({ result })
+        } catch (err) {
+            res.status(500).send({ message: err.toString() })
+        }
+    })
+
+    app.get('/api/v1/zilliqa/contract/state', async (req, res) => {
+        try {
+            const { address } = req.query
+            const { result } = await getSmartContractState(address)
             res.send({ result })
         } catch (err) {
             res.status(500).send({ message: err.toString() })
